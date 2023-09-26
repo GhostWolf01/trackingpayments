@@ -21,21 +21,20 @@ export class AuthorGuard implements CanActivate {
 
     const { id } = request.params;
 
-    let entity;
-
     const typesControllers = {
       TransactionController: async () => {
-        entity = await this.transactionService.findOne(id);
+        return await this.transactionService.findOne(id);
       },
       CategoryController: async () => {
-        entity = await this.categoryService.findOne(id);
+        return await this.categoryService.findOne(id);
       },
       default: async () => {
         throw new BadRequestException();
       },
     };
 
-    await (typesControllers[controller]?.() || typesControllers.default());
+    const entity = await (typesControllers[controller]?.() ||
+      typesControllers.default());
 
     const user = request.user;
 
