@@ -10,7 +10,7 @@ import { IDataFetchError } from './api/fetch.api';
 import { FetchError } from 'ofetch';
 
 function App() {
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   async function checkAuth() {
     const token = getTokenFromCookies();
@@ -18,9 +18,9 @@ function App() {
       if (token) {
         const data = await AuthService.getProfile();
         if (data) {
-          dispath(login(data));
+          dispatch(login(data));
         } else {
-          dispath(logout());
+          dispatch(logout());
         }
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
