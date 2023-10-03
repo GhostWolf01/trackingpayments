@@ -28,8 +28,20 @@ export class UserService {
     });
 
     const token = this.jwtService.sign({ email: createUserDto.email });
+    const expires = new Date(
+      this.jwtService.decode(token)?.['exp'] * 1000,
+    ).toISOString();
 
-    return { user, token };
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+      token,
+      expires,
+    };
   }
 
   async findOne(email: string) {

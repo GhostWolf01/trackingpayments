@@ -21,10 +21,17 @@ export class AuthService {
 
   async login(user: IUser) {
     const { id, email } = user;
+    const token = this.jwtService.sign({ id, email });
+    const expires = new Date(
+      this.jwtService.decode(token)?.['exp'] * 1000,
+    ).toISOString();
     return {
-      id,
-      email,
-      token: this.jwtService.sign({ id, email }),
+      user: {
+        id,
+        email,
+      },
+      token,
+      expires,
     };
   }
 }
