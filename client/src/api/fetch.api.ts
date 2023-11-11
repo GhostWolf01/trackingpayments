@@ -1,6 +1,6 @@
 // http://localhost:3001/api
 import { ofetch } from 'ofetch';
-import { getTokenFromCookies } from '../helpers/cookies.helpers';
+import { getTokenFromCookies } from '../helpers/cookies.helper';
 
 export type methodsFetch = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 

@@ -4,7 +4,7 @@ import { FaBtc, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../hooks/useAuth';
 import { useAppDispatch } from '../store/hooks';
 import { logout } from '../store/users/userSlice';
-import { removeTokenFromCookies } from '../helpers/cookies.helpers';
+import { removeTokenFromCookies } from '../helpers/cookies.helper';
 import { toast } from 'react-toastify';
 
 const Header: FC = () => {

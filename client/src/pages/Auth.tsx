@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { toast } from 'react-toastify';
 import { FetchError } from 'ofetch';
 import { IDataFetchError } from '../api/fetch.api';
-import { setTokenToCookies } from '../helpers/cookies.helpers';
+import { setTokenToCookies } from '../helpers/cookies.helper';
 import { useAppDispatch } from '../store/hooks';
 import { login } from '../store/users/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +23,6 @@ const Auth: FC = () => {
         toast.success('Account has been created.');
         setIsLogin(!isLogin);
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (_e: any) {
       const error: FetchError<IDataFetchError> = _e;
       toast.error(error.data?.message);
@@ -47,7 +46,6 @@ const Auth: FC = () => {
         toast.success('You logged id.');
         navigate('/');
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (_e: any) {
       const error: FetchError<IDataFetchError> = _e;
       toast.error(error.data?.message);

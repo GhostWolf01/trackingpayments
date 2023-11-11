@@ -25,7 +25,7 @@ export class TransactionService {
     };
 
     if (!newTransaction)
-      throw new BadRequestException('Somethins went wrong...');
+      throw new BadRequestException('Somethings went wrong...');
     return await this.transactionRepository.save(newTransaction);
   }
 
@@ -35,6 +35,9 @@ export class TransactionService {
         user: {
           id: userId,
         },
+      },
+      relations: {
+        category: true,
       },
       order: {
         createdAt: 'DESC',

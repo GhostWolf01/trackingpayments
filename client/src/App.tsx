@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router/router';
 import { useAppDispatch } from './store/hooks';
-import { getTokenFromCookies } from './helpers/cookies.helpers';
+import { getTokenFromCookies } from './helpers/cookies.helper';
 import { AuthService } from './services/auth.service';
 import { login, logout } from './store/users/userSlice';
 import { useEffect } from 'react';
@@ -23,7 +23,6 @@ function App() {
           dispatch(logout());
         }
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (_e: any) {
       const error: FetchError<IDataFetchError> = _e;
       toast.error(error.data?.message);
