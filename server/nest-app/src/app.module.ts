@@ -10,11 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    UserModule,
-    CategoryModule,
-    AuthModule,
-    TransactionModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -29,6 +25,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       }),
       inject: [ConfigService],
     }),
+    UserModule,
+    CategoryModule,
+    AuthModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
