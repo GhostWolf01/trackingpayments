@@ -1,0 +1,22 @@
+FROM node:22-alpine
+# FROM oven/bun:latest  error typeorm
+
+ARG DB_PORT=5432
+ARG DB_NAME='postgres'
+ARG DB_HOST='db'
+ARG DB_USERNAME='postgres'
+ARG DB_PASSWORD='postgres'
+ARG JWT_SECRET='fasfdsfdsfdsasfgvbgfnghhgdfbnjm,yjhtfgdafshjkioilp;okujyhtgfddfghgjmngbfvd'
+ENV DB_HOST=$DB_HOST
+ENV DB_PORT=$DB_PORT
+ENV DB_USERNAME=$DB_USERNAME
+ENV DB_PASSWORD=$DB_PASSWORD
+ENV DB_NAME=$DB_NAME
+ENV JWT_SECRET=$JWT_SECRET
+
+WORKDIR /app/api/
+COPY ./src/server .
+
+RUN npm install --force 
+
+CMD npm run start:dev
