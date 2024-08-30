@@ -1,0 +1,12 @@
+**/node_modules/
+**/dist/
+**/.nuxt/
+**/.output/
+package-lock.json
+bun.lockb
+npm-debug.log
+Dockerfile
+.dockerignore
+.vscode
+.git
+.env

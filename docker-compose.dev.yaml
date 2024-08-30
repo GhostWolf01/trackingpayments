@@ -1,0 +1,86 @@
+services:
+  frontend:
+    container_name: trackingpayments-frontend-react
+    environment:
+      SERVER_API_URL: api:3000
+      API_URL: localhost:3000
+    build:
+      context: .
+      dockerfile: dockerfile-dev-front
+      args:
+        SERVER_API_URL: api:3000
+        API_URL: localhost:3000
+    restart: unless-stopped
+    # volumes:
+    #   - frontstorage:/data
+    # - ./src/front:/app/front/
+    links:
+      - api
+    ports:
+      - 3001:3001
+    depends_on:
+      - api
+
+  db:
+    container_name: trackingpayments-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: budget
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - database:/var/lib/postgresql/data
+      # - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    container_name: trackingpayments-nest-api
+    build:
+      context: .
+      dockerfile: dockerfile-dev-api
+      args:
+        DOCKER: true
+        DB_NAME: budget
+        DB_HOST: db
+        DB_PORT: 5432
+        DB_USERNAME: postgres
+        DB_PASSWORD: postgres
+        JWT_SECRET: fasfdsfdsfdsasfgvbgfnghhgdfbnjm,yjhtfgdafshjkioilp;okujyhtgfddfghgjmngbfvd
+    restart: unless-stopped
+    environment:
+      DOCKER: true
+      DB_NAME: budget
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: fasfdsfdsfdsasfgvbgfnghhgdfbnjm,yjhtfgdafshjkioilp;okujyhtgfddfghgjmngbfvd
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    links:
+      - db
+    # volumes:
+    #   - storage:/data
+    #   - ./src/api:/app/api/
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: trackingpayments-nest-pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin4
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    links:
+      - db
+
+volumes:
+  database:
+  storage:
+  frontstorage:
